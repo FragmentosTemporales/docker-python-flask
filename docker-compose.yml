@@ -1,0 +1,23 @@
+version: "3"
+services:
+  backend:
+    build: ./testing-python
+    image: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./testing-python:/app
+    environment:
+      FLASK_ENV: development
+      FLASK_RUN_PORT: "5000"
+      FLASK_HOST: "0.0.0.0"
+
+  frontend:
+    build: ./testing-react
+    image: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./testing-react:/user/src/app
+    depends_on:
+      - backend
